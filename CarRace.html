@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class Lap Racer - Ultimate 4-Track Edition</title>
+    <title>Class Lap Racer 5M2 - Turbo Suspense Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
                     <span id="activeClassBadge" class="text-sm bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 px-2.5 py-0.5 rounded-full font-bold">Class 6H2</span>
                 </h1>
                 <p class="text-gray-300 text-xs md:text-sm mt-0.5">
-                    4 Circuits with Boosts (⚡), Drivable Obstacles, and <span class="text-blue-300 font-semibold">Andrew & Emma</span> commentary!
+                    4 Redesigned Circuits • 23 Racers • Crash Fires, 🚑 Ambulances, 🚑 Ambulances & <span class="text-blue-300 font-semibold">Andrew & Emma</span> commentary!
                 </p>
             </div>
 
@@ -66,6 +66,8 @@
                     <button data-track="2" type="button" class="track-btn font-extrabold text-xs px-2 py-1.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition">T2</button>
                     <button data-track="3" type="button" class="track-btn font-extrabold text-xs px-2 py-1.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition">T3</button>
                     <button data-track="4" type="button" class="track-btn font-extrabold text-xs px-2 py-1.5 rounded-lg border border-transparent text-gray-300 hover:text-white transition">T4</button>
+                    <button data-track="5" type="button" class="track-btn font-extrabold text-xs px-2 py-1.5 rounded-lg border border-transparent text-indigo-200 hover:text-white transition">T5🌙</button>
+                    <button data-track="6" type="button" class="track-btn font-extrabold text-xs px-2 py-1.5 rounded-lg border border-transparent text-amber-300 hover:text-white transition">T6⛰️</button>
                 </div>
 
                 <div class="flex items-center bg-gray-900 p-1 rounded-xl border border-gray-700">
@@ -82,9 +84,9 @@
         </div>
 
         <div class="flex flex-wrap gap-2 mb-3">
-            <button id="btnFirst16" type="button" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-1.5 px-3 rounded-lg text-xs transition">Select First 16</button>
+            <button id="btnFirst16" type="button" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-1.5 px-3 rounded-lg text-xs transition">Select First 23</button>
             <button id="btnRemaining" type="button" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-1.5 px-3 rounded-lg text-xs transition">Select Next 16</button>
-            <button id="btnRandom16" type="button" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-1.5 px-3 rounded-lg text-xs transition">🎲 Random 16</button>
+            <button id="btnRandom16" type="button" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-1.5 px-3 rounded-lg text-xs transition">🎲 Random 23</button>
             <button id="btnClearAll" type="button" class="bg-gray-700 hover:bg-gray-600 text-gray-200 font-semibold py-1.5 px-3 rounded-lg text-xs transition">✖ Clear All</button>
         </div>
 
@@ -120,6 +122,8 @@
                         <button data-track="2" type="button" class="track-btn text-[9px] font-extrabold px-1 py-0.5 rounded bg-gray-800 text-gray-300 border border-gray-700">T2</button>
                         <button data-track="3" type="button" class="track-btn text-[9px] font-extrabold px-1 py-0.5 rounded bg-gray-800 text-gray-300 border border-gray-700">T3</button>
                         <button data-track="4" type="button" class="track-btn text-[9px] font-extrabold px-1 py-0.5 rounded bg-gray-800 text-gray-300 border border-gray-700">T4</button>
+                        <button data-track="5" type="button" class="track-btn text-[9px] font-extrabold px-1 py-0.5 rounded bg-indigo-950 text-indigo-200 border border-indigo-700">T5🌙</button>
+                        <button data-track="6" type="button" class="track-btn text-[9px] font-extrabold px-1 py-0.5 rounded bg-amber-950 text-amber-200 border border-amber-700">T6⛰️</button>
                     </div>
                     <div class="flex gap-0.5">
                         <button data-mins="1" type="button" class="time-btn text-[9px] font-bold px-1 py-0.5 rounded bg-gray-800 text-gray-300 border border-gray-700">1m</button>
@@ -130,7 +134,7 @@
 
                 <div class="flex items-center gap-1">
                     <span class="text-[9px]">🐢</span>
-                    <input id="speedSlider" type="range" min="0.5" max="2.5" value="1" step="0.1" class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                    <span id="speedValueLabel" class="text-[11px] font-bold text-yellow-300 mr-1">2x</span><input id="speedSlider" type="range" min="0.25" max="3.5" value="2" step="0.05" class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer">
                     <span class="text-[9px]">🐇</span>
                 </div>
             </div>
@@ -183,116 +187,168 @@
             { emoji: '🐑', name: 'Sheep', speed: 0.014 }, { emoji: '🐐', name: 'Goat', speed: 0.018 },
             { emoji: '🦆', name: 'Duck', speed: 0.013 }, { emoji: '🐢', name: 'Turtle', speed: 0.008 },
             { emoji: '🐇', name: 'Rabbit', speed: 0.025 }, { emoji: '🐕', name: 'Dog', speed: 0.022 },
-            { emoji: '🐈', name: 'Cat', speed: 0.020 }
+            { emoji: '🐈', name: 'Cat', speed: 0.020 }, { emoji: '🐎', name: 'Wild Horse', speed: 0.028 }
         ];
 
         const EMOJIS = { building: ['🏢', '🏭', '🏤', '🏥', '🏦', '🏫', '🏪'], tree: ['🌳', '🌲', '🌴'], finish: '🏁' };
-        const MAX_RACERS = 16;
-        const cols = 36;
-        const rows = 22;
+        const MAX_RACERS = 23;
+
+        const RACER_COLORS = [
+            { name: "Crimson", hex: "#ef4444" },
+            { name: "Electric Blue", hex: "#3b82f6" },
+            { name: "Gold", hex: "#f59e0b" },
+            { name: "Emerald", hex: "#10b981" },
+            { name: "Violet", hex: "#8b5cf6" },
+            { name: "Hot Pink", hex: "#ec4899" },
+            { name: "Cyan", hex: "#06b6d4" },
+            { name: "Orange", hex: "#f97316" },
+            { name: "Lime", hex: "#84cc16" },
+            { name: "Indigo", hex: "#6366f1" },
+            { name: "Rose", hex: "#f43f5e" },
+            { name: "Teal", hex: "#14b8a6" }
+        ];
+        const EXPANDED_FLEET = [
+            "🏎️", "🚗", "🚕", "🚙", "🚓", "🚑", "🚒", "🚐",
+            "🚚", "🚛", "🚜", "🛻", "🏍️", "🛵", "🚌", "🚎",
+            "🏎️", "🚗", "🚓", "🚕", "🚙", "🏍️", "🛻"
+        ];
+
+        const cols = 54;
+        const rows = 33;
 
         const TRACK_CONFIGS = {
             1: {
-                name: "City Boulevard",
-                startCol: 18, startRow: 1, treeChance: 0.42, buildingChance: 0.35,
-                trafficLights: [1, 3, 5, 7, 9, 11, 13],
+                name: "Grand Prix Twin-Loop",
+                startCol: 26, startRow: 2, treeChance: 0.78, buildingChance: 0.42,
+                trafficLights: [2, 6, 10, 14, 18],
                 tunnels: [], overpasses: [],
+                crossStreets: [
+                    { x1: 18, y1: 2, x2: 18, y2: 30 },
+                    { x1: 34, y1: 2, x2: 34, y2: 30 },
+                    { x1: 4, y1: 11, x2: 50, y2: 11 },
+                    { x1: 4, y1: 25, x2: 50, y2: 25 }
+                ],
                 waypoints: [
-                    { x: 18, y: 1 }, { x: 3, y: 1 }, { x: 3, y: 4 }, { x: 29, y: 4 },
-                    { x: 29, y: 7 }, { x: 3, y: 7 }, { x: 3, y: 10 }, { x: 29, y: 10 },
-                    { x: 29, y: 13 }, { x: 3, y: 13 }, { x: 3, y: 16 }, { x: 29, y: 16 },
-                    { x: 29, y: 19 }, { x: 3, y: 19 }, { x: 3, y: 20 }, { x: 33, y: 20 },
-                    { x: 33, y: 1 }
+                    { x: 26, y: 2 }, { x: 4, y: 2 }, { x: 4, y: 9 }, { x: 14, y: 9 },
+                    { x: 14, y: 5 }, { x: 24, y: 5 }, { x: 24, y: 15 }, { x: 6, y: 15 },
+                    { x: 6, y: 21 }, { x: 28, y: 21 }, { x: 28, y: 11 }, { x: 40, y: 11 },
+                    { x: 40, y: 6 }, { x: 48, y: 6 }, { x: 48, y: 18 }, { x: 32, y: 18 },
+                    { x: 32, y: 26 }, { x: 46, y: 26 }, { x: 46, y: 30 }, { x: 4, y: 30 },
+                    { x: 4, y: 25 }, { x: 50, y: 25 }, { x: 50, y: 2 }
                 ]
             },
             2: {
-                name: "Sharp Hairpins",
-                startCol: 24, startRow: 1, treeChance: 0.07, buildingChance: 0.14,
-                trafficLights: [2, 6, 13, 17, 25, 29, 37, 41],
+                name: "Serpent Switchback",
+                startCol: 28, startRow: 2, treeChance: 0.76, buildingChance: 0.38,
+                trafficLights: [3, 8, 13, 18, 23],
                 tunnels: [], overpasses: [],
+                crossStreets: [
+                    { x1: 14, y1: 2, x2: 14, y2: 30 },
+                    { x1: 36, y1: 2, x2: 36, y2: 30 },
+                    { x1: 4, y1: 14, x2: 50, y2: 14 }
+                ],
                 waypoints: [
-                    { x: 24, y: 1 }, { x: 22, y: 1 }, { x: 22, y: 4 }, { x: 18, y: 4 }, { x: 18, y: 1 },
-                    { x: 14, y: 1 }, { x: 14, y: 4 }, { x: 10, y: 4 }, { x: 10, y: 1 }, { x: 6,  y: 1 },
-                    { x: 6,  y: 4 }, { x: 2,  y: 4 }, { x: 2,  y: 7 }, { x: 7,  y: 7 }, { x: 7,  y: 10 },
-                    { x: 12, y: 10 }, { x: 12, y: 7 }, { x: 17, y: 7 }, { x: 17, y: 10 }, { x: 22, y: 10 },
-                    { x: 22, y: 7 }, { x: 27, y: 7 }, { x: 27, y: 10 }, { x: 30, y: 10 }, { x: 30, y: 13 },
-                    { x: 25, y: 13 }, { x: 25, y: 16 }, { x: 20, y: 16 }, { x: 20, y: 13 }, { x: 15, y: 13 },
-                    { x: 15, y: 16 }, { x: 10, y: 16 }, { x: 10, y: 13 }, { x: 5,  y: 13 }, { x: 5,  y: 16 },
-                    { x: 2,  y: 16 }, { x: 2,  y: 20 }, { x: 8,  y: 20 }, { x: 8,  y: 18 }, { x: 14, y: 18 },
-                    { x: 14, y: 20 }, { x: 20, y: 20 }, { x: 20, y: 18 }, { x: 26, y: 18 }, { x: 26, y: 20 },
-                    { x: 33, y: 20 }, { x: 33, y: 1 }
+                    { x: 28, y: 2 }, { x: 4, y: 2 }, { x: 4, y: 7 }, { x: 18, y: 7 },
+                    { x: 18, y: 4 }, { x: 32, y: 4 }, { x: 32, y: 10 }, { x: 10, y: 10 },
+                    { x: 10, y: 15 }, { x: 26, y: 15 }, { x: 26, y: 12 }, { x: 42, y: 12 },
+                    { x: 42, y: 6 }, { x: 49, y: 6 }, { x: 49, y: 19 }, { x: 34, y: 19 },
+                    { x: 34, y: 23 }, { x: 16, y: 23 }, { x: 16, y: 19 }, { x: 5, y: 19 },
+                    { x: 5, y: 30 }, { x: 22, y: 30 }, { x: 22, y: 26 }, { x: 38, y: 26 },
+                    { x: 38, y: 30 }, { x: 50, y: 30 }, { x: 50, y: 2 }
                 ]
             },
             3: {
-                name: "Spiral Vortex",
-                startCol: 22, startRow: 1, treeChance: 0.16, buildingChance: 0.22,
-                trafficLights: [1, 3, 5, 7, 10, 14, 18],
+                name: "Blizzard Snow Circuit ❄️",
+                isSnow: true,
+                startCol: 27, startRow: 2, treeChance: 0.82, buildingChance: 0.34,
+                trafficLights: [2, 6, 11, 16, 20],
                 tunnels: [], overpasses: [],
+                crossStreets: [
+                    { x1: 20, y1: 2, x2: 20, y2: 30 },
+                    { x1: 36, y1: 2, x2: 36, y2: 30 },
+                    { x1: 3, y1: 16, x2: 50, y2: 16 }
+                ],
                 waypoints: [
-                    { x: 22, y: 1 }, { x: 2,  y: 1 }, { x: 2,  y: 19 }, { x: 29, y: 19 }, { x: 29, y: 4 },
-                    { x: 6,  y: 4 }, { x: 6,  y: 16 }, { x: 25, y: 16 }, { x: 25, y: 7 }, { x: 10, y: 7 },
-                    { x: 10, y: 13 }, { x: 21, y: 13 }, { x: 21, y: 10 }, { x: 14, y: 10 }, { x: 14, y: 20 },
-                    { x: 20, y: 20 }, { x: 20, y: 18 }, { x: 26, y: 18 }, { x: 26, y: 20 }, { x: 33, y: 20 },
-                    { x: 33, y: 1 }
+                    { x: 27, y: 2 }, { x: 3, y: 2 }, { x: 3, y: 12 }, { x: 14, y: 12 },
+                    { x: 14, y: 6 }, { x: 24, y: 6 }, { x: 24, y: 16 }, { x: 6, y: 16 },
+                    { x: 6, y: 28 }, { x: 18, y: 28 }, { x: 18, y: 22 }, { x: 30, y: 22 },
+                    { x: 30, y: 10 }, { x: 44, y: 10 }, { x: 44, y: 18 }, { x: 34, y: 18 },
+                    { x: 34, y: 27 }, { x: 48, y: 27 }, { x: 48, y: 21 }, { x: 40, y: 21 },
+                    { x: 40, y: 5 }, { x: 50, y: 5 }, { x: 50, y: 30 }, { x: 50, y: 2 }
                 ]
             },
             4: {
-                name: "Overpass & Tunnel Circuit",
-                startCol: 20, startRow: 1, treeChance: 0.18, buildingChance: 0.20,
-                trafficLights: [1, 4, 8, 12, 16, 20],
+                name: "Skybridge & Canyon",
+                startCol: 28, startRow: 2, treeChance: 0.78, buildingChance: 0.36,
+                trafficLights: [2, 6, 10, 14, 18],
                 tunnels: [
-                    { x1: 3, y1: 3, x2: 3, y2: 7, orientation: 'vertical', label: 'TUNNEL 1' },
-                    { x1: 11, y1: 14, x2: 16, y2: 14, orientation: 'horizontal', label: 'MOUNTAIN TUNNEL' },
-                    { x1: 33, y1: 8, x2: 33, y2: 13, orientation: 'vertical', label: 'EAST TUNNEL' }
+                    { x1: 4, y1: 6, x2: 4, y2: 12, orientation: "vertical", label: "WEST TUNNEL" },
+                    { x1: 20, y1: 25, x2: 29, y2: 25, orientation: "horizontal", label: "CANYON TUNNEL" },
+                    { x1: 50, y1: 11, x2: 50, y2: 19, orientation: "vertical", label: "EAST TUNNEL" }
                 ],
                 overpasses: [
-                    { x: 10, y: 5, underWp: 12, overWp: 3 },
-                    { x: 10, y: 11, underWp: 15, overWp: 3 },
-                    { x: 26, y: 5, underWp: 12, overWp: 8 },
-                    { x: 26, y: 11, underWp: 14, overWp: 9 },
-                    { x: 18, y: 5, underWp: 2, overWp: 14 },
-                    { x: 18, y: 14, underWp: 16, overWp: 13 }
+                    { x: 14, y: 9, underWp: 9, overWp: 4 },
+                    { x: 38, y: 9, underWp: 9, overWp: 6 },
+                    { x: 38, y: 19, underWp: 13, overWp: 6 },
+                    { x: 38, y: 25, underWp: 11, overWp: 6 }
+                ],
+                crossStreets: [
+                    { x1: 24, y1: 2, x2: 24, y2: 30 },
+                    { x1: 4, y1: 14, x2: 50, y2: 14 }
                 ],
                 waypoints: [
-                    { x: 20, y: 1 }, 
-                    { x: 3,  y: 1 }, 
-                    { x: 3,  y: 9 }, 
-                    { x: 10, y: 9 }, 
-                    { x: 10, y: 2 }, 
-                    { x: 10, y: 18 }, 
-                    { x: 26, y: 18 }, 
-                    { x: 26, y: 3 }, 
-                    { x: 31, y: 3 }, 
-                    { x: 31, y: 16 }, 
-                    { x: 22, y: 16 }, 
-                    { x: 22, y: 5 }, 
-                    { x: 6,  y: 5 }, 
-                    { x: 6,  y: 11 }, 
-                    { x: 29, y: 11 }, 
-                    { x: 29, y: 14 }, 
-                    { x: 8,  y: 14 }, 
-                    { x: 8,  y: 20 }, 
-                    { x: 18, y: 20 }, 
-                    { x: 18, y: 3 }, 
-                    { x: 2,  y: 3 }, 
-                    { x: 2,  y: 20 }, 
-                    { x: 33, y: 20 }, 
-                    { x: 33, y: 1 }    
+                    { x: 28, y: 2 }, { x: 4, y: 2 }, { x: 4, y: 15 }, { x: 14, y: 15 },
+                    { x: 14, y: 4 }, { x: 38, y: 4 }, { x: 38, y: 28 }, { x: 46, y: 28 },
+                    { x: 46, y: 9 }, { x: 8, y: 9 }, { x: 8, y: 25 }, { x: 42, y: 25 },
+                    { x: 42, y: 19 }, { x: 6, y: 19 }, { x: 6, y: 30 }, { x: 50, y: 30 },
+                    { x: 50, y: 2 }
+                ]
+            },
+            5: {
+                name: "Nighttime Roundabout GP 🌙",
+                isCurvedNight: true,
+                startCol: 27, startRow: 3, treeChance: 0.78, buildingChance: 0.36,
+                trafficLights: [12, 34, 58, 76],
+                tunnels: [], overpasses: [],
+                roundabouts: [
+                    { cx: 11, cy: 14, r: 3.4, label: "WEST CIRCLE" },
+                    { cx: 42, cy: 17, r: 3.8, label: "EAST CIRCLE" }
+                ],
+                waypoints: [{"x": 29.19, "y": 3.09}, {"x": 27.13, "y": 3.0}, {"x": 25.07, "y": 3.07}, {"x": 23.05, "y": 3.28}, {"x": 21.12, "y": 3.65}, {"x": 19.31, "y": 4.15}, {"x": 17.68, "y": 4.78}, {"x": 16.24, "y": 5.52}, {"x": 15.04, "y": 6.36}, {"x": 14.1, "y": 7.28}, {"x": 15.6, "y": 9.76}, {"x": 14.31, "y": 8.84}, {"x": 12.81, "y": 8.24}, {"x": 11.2, "y": 8.0}, {"x": 9.58, "y": 8.14}, {"x": 8.05, "y": 8.65}, {"x": 6.7, "y": 9.5}, {"x": 5.62, "y": 10.63}, {"x": 4.88, "y": 11.97}, {"x": 4.53, "y": 13.44}, {"x": 4.58, "y": 14.94}, {"x": 5.03, "y": 16.38}, {"x": 5.86, "y": 17.68}, {"x": 7.02, "y": 18.74}, {"x": 8.42, "y": 19.51}, {"x": 9.98, "y": 19.93}, {"x": 11.61, "y": 19.97}, {"x": 13.2, "y": 19.65}, {"x": 14.65, "y": 18.96}, {"x": 15.88, "y": 17.97}, {"x": 10.1, "y": 23.1}, {"x": 10.39, "y": 24.16}, {"x": 10.87, "y": 25.18}, {"x": 11.53, "y": 26.11}, {"x": 12.34, "y": 26.95}, {"x": 13.3, "y": 27.66}, {"x": 14.37, "y": 28.24}, {"x": 15.53, "y": 28.66}, {"x": 16.75, "y": 28.91}, {"x": 18.0, "y": 29.0}, {"x": 28.25, "y": 27.91}, {"x": 29.87, "y": 27.54}, {"x": 31.36, "y": 26.87}, {"x": 32.66, "y": 25.95}, {"x": 33.71, "y": 24.81}, {"x": 34.47, "y": 23.51}, {"x": 34.9, "y": 22.1}, {"x": 34.99, "y": 20.63}, {"x": 34.73, "y": 19.19}, {"x": 34.13, "y": 17.82}, {"x": 33.22, "y": 16.59}, {"x": 32.03, "y": 15.56}, {"x": 35.58, "y": 13.91}, {"x": 34.96, "y": 15.55}, {"x": 34.81, "y": 17.29}, {"x": 35.12, "y": 19.01}, {"x": 35.89, "y": 20.59}, {"x": 37.06, "y": 21.94}, {"x": 38.55, "y": 22.97}, {"x": 40.27, "y": 23.6}, {"x": 42.1, "y": 23.8}, {"x": 43.93, "y": 23.55}, {"x": 45.63, "y": 22.87}, {"x": 47.09, "y": 21.81}, {"x": 48.22, "y": 20.43}, {"x": 48.94, "y": 18.82}, {"x": 49.2, "y": 17.1}, {"x": 48.99, "y": 15.37}, {"x": 48.32, "y": 13.74}, {"x": 47.23, "y": 12.33}, {"x": 45.81, "y": 11.23}, {"x": 44.13, "y": 10.5}, {"x": 42.31, "y": 10.21}, {"x": 40.47, "y": 10.36}, {"x": 49.0, "y": 10.0}, {"x": 48.9, "y": 9.05}, {"x": 48.59, "y": 8.12}, {"x": 48.1, "y": 7.22}, {"x": 47.41, "y": 6.37}, {"x": 46.55, "y": 5.59}, {"x": 45.53, "y": 4.9}, {"x": 44.37, "y": 4.29}, {"x": 43.1, "y": 3.8}, {"x": 41.73, "y": 3.41}, {"x": 40.29, "y": 3.15}, {"x": 38.81, "y": 3.02}]
+            },
+            6: {
+                name: "Mountain Cliff Switchbacks ⛰️",
+                isMountainCliff: true,
+                startCol: 26, startRow: 2, treeChance: 0.72, buildingChance: 0.18,
+                trafficLights: [4, 10, 16, 22],
+                tunnels: [
+                    { x1: 24, y1: 14, x2: 30, y2: 14, orientation: "horizontal", label: "CLIFF TUNNEL" }
+                ],
+                overpasses: [],
+                waypoints: [
+                    { x: 26, y: 2 }, { x: 4, y: 2 }, { x: 4, y: 6 }, { x: 14, y: 6 },
+                    { x: 14, y: 4 }, { x: 22, y: 4 }, { x: 22, y: 9 }, { x: 6, y: 9 },
+                    { x: 6, y: 13 }, { x: 18, y: 13 }, { x: 18, y: 10 }, { x: 34, y: 10 },
+                    { x: 34, y: 5 }, { x: 46, y: 5 }, { x: 46, y: 10 }, { x: 38, y: 10 },
+                    { x: 38, y: 14 }, { x: 10, y: 14 }, { x: 10, y: 19 }, { x: 28, y: 19 },
+                    { x: 28, y: 17 }, { x: 48, y: 17 }, { x: 48, y: 23 }, { x: 16, y: 23 },
+                    { x: 16, y: 27 }, { x: 6, y: 27 }, { x: 6, y: 30 }, { x: 32, y: 30 },
+                    { x: 32, y: 26 }, { x: 50, y: 26 }, { x: 50, y: 2 }
                 ]
             }
         };
 
         // --- 2. GAME STATE ---
-        let currentClass = "6H2"; let currentTrackId = 1; let selectedStudents = new Set(CLASS_ROSTERS["6H2"].slice(0, MAX_RACERS));
+        let currentClass = "5M2"; let currentTrackId = 1; let selectedStudents = new Set(CLASS_ROSTERS["5M2"].slice(0, MAX_RACERS));
         let selectedDurationMinutes = 2; let raceDurationMs = selectedDurationMinutes * 60 * 1000;
         let map = Array.from({ length: rows }, () => Array(cols).fill(0));
         let lapWaypoints = TRACK_CONFIGS[1].waypoints; let hazardRoadCandidates = [];
         let segmentDistances = []; let cumulativeSegmentDist = [0]; let totalLapLength = 1;
         let finishLinePhase = false; let podiumLocked = [];
         let racers = []; let activeAnimals = []; let activeRocks = []; let activeTrafficLights = []; let fireworks = [];
-        let activeBoosts = []; 
+        let activeBoosts = []; let activeEmergencies = []; let activeEffects = []; let activeIcePatches = []; let activeRoadObstacles = []; let nextBlackIceTime = 0; let nextPileupTime = 0; let shakeUntil = 0; let flashUntil = 0; let slowMoUntil = 0; let nextLeaderDramaTime = 0; 
         let emojiMap = []; let TILE_SIZE = 32;
-        let gameRunning = false; let celebrationActive = false; let animationFrameId = null; let simulationSpeed = 1;
+        let gameRunning = false; let celebrationActive = false; let animationFrameId = null; let simulationSpeed = 2;
         let raceStartTime = 0; let remainingTimeMs = raceDurationMs; let lastTime = 0; let lastPanelRenderTime = 0;
         
         let nextAnimalSpawnTime = 0; let nextRockSpawnTime = 0; let nextBoostSpawnTime = 0; let nextRandomHornTime = 0;
@@ -329,34 +385,81 @@
                 totalLapLength += segLen;
                 cumulativeSegmentDist.push(totalLapLength);
 
-                const minX = Math.min(p1.x, p2.x); const maxX = Math.max(p1.x, p2.x);
-                const minY = Math.min(p1.y, p2.y); const maxY = Math.max(p1.y, p2.y);
-                for (let r = minY; r <= maxY; r++) {
-                    for (let c = minX; c <= maxX; c++) {
-                        map[r][c] = 1;
-                        if (!(r === cfg.startRow && c >= cfg.startCol - 2) && c < cols - 2) roadCandidateSet.add(`${c},${r}`);
+                const steps = Math.max(1, Math.ceil(segLen * 2));
+                for (let s = 0; s <= steps; s++) {
+                    const t = s / steps;
+                    const cx = Math.round(p1.x + (p2.x - p1.x) * t);
+                    const cy = Math.round(p1.y + (p2.y - p1.y) * t);
+                    if (cy >= 0 && cy < rows && cx >= 0 && cx < cols) {
+                        map[cy][cx] = 1;
+                        if (!(cy === cfg.startRow && cx >= cfg.startCol - 2) && cx < cols - 2) roadCandidateSet.add(`${cx},${cy}`);
                     }
                 }
             }
+            // Paint cross streets onto map
+            if (cfg.crossStreets) {
+                cfg.crossStreets.forEach(cs => {
+                    const minX = Math.min(cs.x1, cs.x2), maxX = Math.max(cs.x1, cs.x2);
+                    const minY = Math.min(cs.y1, cs.y2), maxY = Math.max(cs.y1, cs.y2);
+                    for (let r = minY; r <= maxY; r++) {
+                        for (let c = minX; c <= maxX; c++) {
+                            if (r >= 0 && r < rows && c >= 0 && c < cols && map[r][c] === 0) map[r][c] = 1;
+                        }
+                    }
+                });
+            }
             map[cfg.startRow][cfg.startCol] = 4;
+            const isNextToRoad = (r, c) => (
+                (r > 0 && (map[r-1][c] === 1 || map[r-1][c] === 4)) ||
+                (r < rows - 1 && (map[r+1][c] === 1 || map[r+1][c] === 4)) ||
+                (c > 0 && (map[r][c-1] === 1 || map[r][c-1] === 4)) ||
+                (c < cols - 1 && (map[r][c+1] === 1 || map[r][c+1] === 4))
+            );
             for (let r = 0; r < rows; r++) {
                 for (let c = 0; c < cols; c++) {
                     if (map[r][c] === 0) {
-                        if (r === 0 || r === rows - 1 || c === 0 || c === cols - 1) { if ((r + c) % 2 === 0) map[r][c] = 3; }
-                        else if (Math.random() < cfg.buildingChance) map[r][c] = 2;
-                        else if (Math.random() < cfg.treeChance) map[r][c] = 3;
+                        if (r === 0 || r === rows - 1 || c === 0 || c === cols - 1) {
+                            if ((r + c) % 2 === 0) map[r][c] = 3;
+                        } else if (isNextToRoad(r, c) && Math.random() < cfg.buildingChance) {
+                            map[r][c] = 2; // Stores/shops ONLY along the road!
+                        } else if (Math.random() < cfg.treeChance) {
+                            map[r][c] = 3; // Trees everywhere else!
+                        }
                     }
                 }
             }
             hazardRoadCandidates = Array.from(roadCandidateSet).map(coord => { const [x, y] = coord.split(',').map(Number); return { x, y }; });
-            emojiMap = map.map(row => row.map(tile => {
-                if (tile === 2) return EMOJIS.building[Math.floor(Math.random() * EMOJIS.building.length)];
-                if (tile === 3) return EMOJIS.tree[Math.floor(Math.random() * EMOJIS.tree.length)]; return null;
-            }));
+            emojiMap = Array.from({ length: rows }, () => Array(cols).fill(null));
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (map[r][c] === 3) {
+                        emojiMap[r][c] = cfg.isSnow
+                            ? (Math.random() < 0.14 ? "⛄" : "🌲")
+                            : (cfg.isMountainCliff
+                                ? ["⛰️","🏔️","🗻","🍂","🍁","🌲"][Math.floor(Math.random()*6)]
+                                : EMOJIS.tree[Math.floor(Math.random() * EMOJIS.tree.length)]);
+                    } else if (map[r][c] === 2) {
+                        let pool = ["🏢", "🏦", "🏪"];
+                        if (r < rows * 0.45 && c < cols * 0.45) pool = ["🏫", "🏥", "🏤", "🏪"];
+                        else if (r > rows * 0.7 || c > cols * 0.85) pool = ["🏭", "🏢", "🏪"];
+                        const neighbors = new Set([
+                            r > 0 ? emojiMap[r-1][c] : null,
+                            c > 0 ? emojiMap[r][c-1] : null,
+                            (r > 0 && c > 0) ? emojiMap[r-1][c-1] : null,
+                            (r > 0 && c < cols - 1) ? emojiMap[r-1][c+1] : null
+                        ]);
+                        const filtered = pool.filter(b => !neighbors.has(b));
+                        const choices = filtered.length ? filtered : EMOJIS.building.filter(b => !neighbors.has(b));
+                        const finalPool = choices.length ? choices : pool;
+                        emojiMap[r][c] = finalPool[Math.floor(Math.random() * finalPool.length)];
+                    }
+                }
+            }
             activeTrafficLights = cfg.trafficLights.map(wpIdx => { const node = lapWaypoints[wpIdx]; return { wpIdx: wpIdx, x: node ? node.x : 0, y: node ? node.y : 0, state: 'green', timer: Math.random() * 6000 + 4000 }; }).filter(l => l.x !== 0);
         }
 
         function computeRacerExactScore(racer) {
+            if (racer.eliminated) return -10000 - racer.id;
             if (racer.finishRank > 0) {
                 return 1000000 - (racer.finishRank * 1000);
             }
@@ -390,16 +493,27 @@
                 crashSynth = new Tone.NoiseSynth({ noise: { type: 'brown' }, envelope: { attack: 0.002, decay: 0.45, sustain: 0.1, release: 0.25 } }).toDestination(); crashSynth.volume.value = -12;
                 boostSynth = new Tone.NoiseSynth({ noise: { type: 'white' }, envelope: { attack: 0.05, decay: 0.5, sustain: 0.2, release: 1 } }).toDestination(); boostSynth.volume.value = -14;
 
-                const melodyNotes = ['C5', 'E5', 'G5', 'E5', 'F5', 'A5', 'G5', 'E5', 'D5', 'F5', 'A5', 'F5', 'G5', 'B5', 'C6', 'G5'];
-                const bassNotes = ['C3', 'C3', 'G2', 'G2', 'F2', 'F2', 'C3', 'C3', 'D2', 'D2', 'A2', 'A2', 'G2', 'G2', 'G2', 'B2'];
+                const TRACK_MUSIC = {
+                    1: { bpm: 152, lead: ["A4","C5","E5","A5","G5","E5","D5","E5","F4","A4","C5","F5","E5","C5","B4","G4"], bass: ["A2","A2","A3","A2","F2","F2","F3","F2","G2","G2","G3","G2","E2","E2","G2","E2"] },
+                    2: { bpm: 158, lead: ["E4","G4","B4","E5","D5","B4","A4","B4","C5","B4","A4","G4","F#4","A4","B4","E5"], bass: ["E2","E3","E2","E3","C2","C3","C2","C3","D2","D3","D2","D3","B1","B2","B1","B2"] },
+                    3: { bpm: 146, lead: ["C5","Eb5","G5","C6","Bb5","G5","F5","G5","Ab4","C5","Eb5","Ab5","G5","F5","D5","G4"], bass: ["C2","C3","G2","C3","Ab1","Ab2","Eb2","Ab2","F2","F3","C3","F2","G2","G3","D2","G2"] },
+                    4: { bpm: 162, lead: ["D4","F4","A4","D5","C5","A4","G4","A4","Bb4","A4","G4","F4","E4","G4","A4","C#5"], bass: ["D2","D2","D3","A2","Bb1","Bb1","Bb2","F2","G2","G2","G3","D2","A1","A2","E2","A2"] },
+                    5: { bpm: 154, lead: ["F#4","A4","C#5","F#5","E5","C#5","B4","C#5","D4","F#4","A4","D5","C#5","A4","G#4","E4"], bass: ["F#2","F#3","C#2","F#2","D2","D3","A1","D2","B1","B2","F#2","B1","C#2","C#3","G#1","C#2"] },
+                    6: { bpm: 160, lead: ["G4","Bb4","D5","G5","F5","D5","C5","D5","Eb4","G4","Bb4","Eb5","D5","Bb4","A4","F#4"], bass: ["G2","G2","D2","G2","Eb2","Eb2","Bb1","Eb2","C2","C2","G2","C2","D2","D2","A1","D2"] }
+                };
                 let step = 0;
                 musicLoop = new Tone.Loop((time) => {
                     if (!gameRunning) return;
-                    polySynth.triggerAttackRelease(melodyNotes[step % melodyNotes.length], '16n', time);
-                    bassSynth.triggerAttackRelease(bassNotes[step % bassNotes.length], '8n', time);
-                    step++;
-                }, '8n');
-                Tone.Transport.bpm.value = 140; soundInitialized = true;
+                    try {
+                        const tm = TRACK_MUSIC[currentTrackId] || TRACK_MUSIC[1];
+                        if (Tone.Transport.bpm.value !== tm.bpm) Tone.Transport.bpm.value = tm.bpm;
+                        const s = step % 16;
+                        bassSynth.triggerAttackRelease(tm.bass[s], "16n", time);
+                        if (s % 2 === 0) polySynth.triggerAttackRelease(tm.lead[s], "16n", time);
+                        step++;
+                    } catch (e) {}
+                }, "16n");
+                Tone.Transport.bpm.value = 152; soundInitialized = true;
             } catch (e) { console.warn('Audio init warning:', e); }
         }
         function startBackgroundMusic() { if (!soundInitialized) return; try { if (Tone.Transport.state !== 'started') Tone.Transport.start(); musicLoop.start(0); } catch (e) {} }
@@ -457,7 +571,7 @@
             const utter = new SpeechSynthesisUtterance(text);
             utter.volume = 1.0;
             utter.rate = 1.0;
-            utter.pitch = speaker === 'Emma' ? 1.05 : 0.95;
+            utter.pitch = speaker === 'Emma' ? 1.12 : 1.02;
             utter.lang = 'en-US';
 
             const preferredVoice = speaker === 'Emma' ? emmaVoice : andrewVoice;
@@ -526,11 +640,13 @@
                 speakCommentary(speaker, urgentAnnouncementQueue.shift(), false); return;
             }
 
-            if (now - lastSpeechEndTime < (firstChanged ? 150 : 520)) return;
+            if (now - lastSpeechEndTime < (firstChanged ? 80 : 180)) return;
             lastCommentaryWasUrgent = false; prevTopThreeNames = [first ? first.name : "", second ? second.name : "", third ? third.name : ""];
             const speaker = commentatorTurn % 2 === 0 ? 'Emma' : 'Andrew'; commentatorTurn++; commentaryStyleIndex++;
 
             let line = "";
+            const final20s = (typeof remainingTimeMs !== "undefined" && remainingTimeMs <= 20000);
+            const neckAndNeck = second && Math.abs(computeRacerExactScore(first) - computeRacerExactScore(second)) < 2.2;
             if (finishLinePhase) {
                 const sprintLines = [
                     `Final sprint to the checkered flag! ${first.name} in the ${v1} is leading the charge toward the finish line, with ${second ? second.name + ' in the ' + v2 : 'the pack'} right on their bumper!`,
@@ -538,6 +654,17 @@
                     `Heart-pounding finish! ${first.name} is flooring the gas in the ${v1}, trying to hold off ${second ? second.name + ' in the ' + v2 : 'everyone'} at the checkered flag!`
                 ];
                 line = sprintLines[commentaryStyleIndex % sprintLines.length];
+            } else if (second && third && (final20s || neckAndNeck) && !firstChanged) {
+                const duelLines = final20s ? [
+                    `TWENTY SECONDS TO GO! ${first.name} and ${second.name} are NECK AND NECK, with ${third.name} right on their tail! My heart is pounding!`,
+                    `FINAL SECONDS! ${first.name} in the ${v1} is fighting tooth and nail against ${second.name} in the ${v2}, and ${third.name} is diving inside for the win!`,
+                    `WHAT A FINISH! ${first.name}, ${second.name}, and ${third.name} are three-wide fighting for the championship! Nobody is backing down!`
+                ] : [
+                    `NECK AND NECK FOR FIRST! ${first.name} in the ${v1} and ${second.name} in the ${v2} are side by side, trading paint at full speed!`,
+                    `LOOK AT THAT BATTLE! ${first.name} and ${second.name} are bumper to bumper for number one, while ${third.name} closes in fast!`,
+                    `UNBELIEVABLE TENSION! ${second.name} pulls right alongside ${first.name}—they are dead even heading into the turn!`
+                ];
+                line = duelLines[commentaryStyleIndex % duelLines.length];
             } else if (second && third) {
                 if (firstChanged) {
                     const overtakeLinesEmma = [
@@ -579,12 +706,40 @@
 
         // --- 6. RACER UPDATE & HAZARDS ---
         function updateHazardsAndHorns(now, dt) {
+            // Draw crash fires, ambulances & helicopters
+            racers.forEach(r => {
+                if (!r.eliminated) return;
+                const rx = r.tileX * TILE_SIZE; const ry = r.tileY * TILE_SIZE;
+                ctx.save();
+                ctx.font = `${TILE_SIZE * 0.9}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                ctx.fillText(r.emoji, rx, ry);
+                ctx.font = `${TILE_SIZE * 0.85}px sans-serif`;
+                ctx.fillText("🔥", rx, ry - TILE_SIZE * 0.25);
+                ctx.restore();
+            });
+            activeEmergencies.forEach(em => {
+                const ax = em.ambX * TILE_SIZE; const ay = em.ambY * TILE_SIZE;
+                const hx = em.heliX * TILE_SIZE; const hy = em.heliY * TILE_SIZE;
+                const flash = Math.floor(now / 180) % 2 === 0;
+                ctx.save();
+                ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                ctx.beginPath();
+                ctx.arc(ax, ay, TILE_SIZE * 0.55, 0, Math.PI * 2);
+                ctx.fillStyle = flash ? "rgba(239, 68, 68, 0.35)" : "rgba(59, 130, 246, 0.35)";
+                ctx.fill();
+                ctx.font = `${TILE_SIZE * 0.95}px sans-serif`;
+                ctx.fillText("🚑", ax, ay);
+                
+                ctx.restore();
+            });
+
+
             activeTrafficLights.forEach(light => {
                 light.timer -= dt;
                 if (light.timer <= 0) {
-                    if (light.state === 'green') { light.state = 'yellow'; light.timer = 1200; }
-                    else if (light.state === 'yellow') { light.state = 'red'; light.timer = 1800; }
-                    else { light.state = 'green'; light.timer = 7000 + Math.random() * 3000; } // Lights stay green much longer now!
+                    if (light.state === 'green') { light.state = 'yellow'; light.timer = 900; }
+                    else if (light.state === 'yellow') { light.state = 'red'; light.timer = 950; }
+                    else { light.state = 'green'; light.timer = 10000 + Math.random() * 4000; } // Lights stay green much longer now!
                 }
             });
 
@@ -601,7 +756,6 @@
                 hazardBannerIcon.textContent = animalSpec.emoji;
                 hazardBannerText.textContent = `${animalSpec.emoji} ${animalSpec.name} crossing the road!`;
                 hazardBanner.classList.remove('hidden');
-                playVariedCarHorn();
                 if (Math.random() < 0.65) {
                     queueUrgentEventAnnouncement(`Heads up! A ${animalSpec.name} is wandering across the track!`);
                 }
@@ -614,17 +768,16 @@
                 nextRockSpawnTime = now + 2800 + Math.random() * 2500;
             }
 
-            if (now > nextBoostSpawnTime && activeBoosts.length < 4 && hazardRoadCandidates.length > 0) {
+            if (now > nextBoostSpawnTime && activeBoosts.length < 14 && hazardRoadCandidates.length > 0) {
                 const pt = hazardRoadCandidates[Math.floor(Math.random() * hazardRoadCandidates.length)];
                 const alreadyOccupied = activeBoosts.some(b => Math.hypot(b.tileX - (pt.x + 0.5), b.tileY - (pt.y + 0.5)) < 1.2);
                 if (!alreadyOccupied) {
                     activeBoosts.push({ tileX: pt.x + 0.5, tileY: pt.y + 0.5 });
                 }
-                nextBoostSpawnTime = now + 3500 + Math.random() * 3000;
+                nextBoostSpawnTime = now + 1100 + Math.random() * 900;
             }
 
             if (now > nextRandomHornTime) {
-                playVariedCarHorn();
                 nextRandomHornTime = now + 2000 + Math.random() * 2800;
             }
 
@@ -634,11 +787,176 @@
             if (activeAnimals.length === 0 && !racers.some(r => now < r.crashedUntil)) hazardBanner.classList.add('hidden');
         }
 
+                
+        function triggerBlackIceEvent() {
+            if (!gameRunning || hazardRoadCandidates.length === 0) return;
+            const now = performance.now();
+            for (let i = 0; i < 6; i++) {
+                const pt = hazardRoadCandidates[Math.floor(Math.random() * hazardRoadCandidates.length)];
+                activeIcePatches.push({ tileX: pt.x + 0.5, tileY: pt.y + 0.5, until: now + 18000 });
+            }
+            hazardBannerIcon.textContent = "❄️🧊";
+            hazardBannerText.textContent = "BLACK ICE ALERT! Watch out for slippery ice patches!";
+            hazardBanner.classList.remove("hidden");
+            queueUrgentEventAnnouncement("Watch out! Six sheets of black ice just formed on the track!");
+        }
+
+        function triggerPileupEvent() {
+            if (!gameRunning) return;
+            const now = performance.now();
+            const active = getSortedRacers().filter(r => !r.eliminated && r.finishRank === 0);
+            if (!canEliminateNow() || active.length <= 8) return;
+            const victim = active[0];
+            const runnerUp = active[1];
+            triggerEliminationCrash(victim, "got caught in a sudden multi-car pileup", runnerUp ? runnerUp.name : "", now);
+            if (active.length > 6 && active[2]) {
+                active[2].crashedUntil = now + 1400;
+                active[2].crashStart = now;
+                active[2].wreckAngle = -0.4;
+            }
+        }
+
+                function canEliminateNow() {
+            if (!gameRunning || finishLinePhase || !raceDurationMs) return false;
+            const elapsedRatio = 1 - (remainingTimeMs / raceDurationMs);
+            if (elapsedRatio < (1 / 3) || elapsedRatio > (2 / 3)) return false;
+            const minSurvivors = Math.max(8, Math.ceil(racers.length / 3));
+            const aliveCount = racers.filter(r => !r.eliminated && r.finishRank === 0).length;
+            return aliveCount > minSurvivors;
+        }
+
+        function triggerEliminationCrash(racer, reason, nextLeaderName, now) {
+            if (!canEliminateNow()) return;
+            racer.eliminated = true;
+            racer.crashedUntil = now + 999999; racer.crashStart = now; racer.wreckAngle = (Math.random() < 0.5 ? -1 : 1) * (0.35 + Math.random() * 0.45);
+            const offX = (Math.random() < 0.5 ? -1 : 1) * (0.75 + Math.random() * 0.45);
+            const offY = (Math.random() < 0.5 ? -1 : 1) * (0.75 + Math.random() * 0.45);
+            racer.tileX = Math.max(1, Math.min(cols - 2, racer.tileX + offX));
+            racer.tileY = Math.max(1, Math.min(rows - 2, racer.tileY + offY));
+            playCrashSound();
+            flashUntil = now + 110;
+            shakeUntil = now + 320;
+            slowMoUntil = now + 220;
+            activeEffects.push({ type: "explosion", x: racer.tileX, y: racer.tileY, createdAt: now, until: now + 1200 });
+            for (let p = 0; p < 24; p++) {
+                const ang = Math.random() * Math.PI * 2;
+                const spd = 0.03 + Math.random() * 0.11;
+                activeEffects.push({
+                    type: p < 16 ? "fireball" : "debris",
+                    x: racer.tileX, y: racer.tileY,
+                    vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd,
+                    size: 0.14 + Math.random() * 0.22,
+                    color: p % 3 === 0 ? "#fde047" : (p % 3 === 1 ? "#f97316" : "#ef4444"),
+                    createdAt: now, until: now + 750 + Math.random() * 350
+                });
+            }
+            for (let s = 0; s < 6; s++) {
+                activeEffects.push({
+                    type: "smoke",
+                    x: racer.tileX + (Math.random() - 0.5) * 0.4, y: racer.tileY + (Math.random() - 0.5) * 0.4,
+                    vx: (Math.random() - 0.5) * 0.02, vy: -0.035 - Math.random() * 0.02,
+                    createdAt: now, until: now + 1400
+                });
+            }
+
+            activeEmergencies.push({
+                fireX: racer.tileX,
+                fireY: racer.tileY,
+                ambX: Math.random() < 0.5 ? 0.5 : cols - 1.5,
+                ambY: racer.tileY,
+                heliX: Math.random() < 0.5 ? -1 : cols + 1,
+                heliY: Math.random() < 0.5 ? 1 : rows - 2,
+                until: now + 9500
+            });
+
+            const vName = VEHICLE_NAMES[racer.emoji] || "car";
+            hazardBannerIcon.textContent = "🔥💥🚑";
+            hazardBannerText.textContent = `CRASH & FIRE! ${racer.name} is OUT of the race!`;
+            hazardBanner.classList.remove("hidden");
+
+            const leadText = nextLeaderName ? ` ${nextLeaderName} rockets into first place!` : "";
+            const lines = [
+                `DISASTER FOR THE LEADER! ${racer.name} in the ${vName} ${reason}, skidded off the track, and burst into flames! ${racer.name} is OUT of the race! An emergency ambulance is rushing in!${leadText}`,
+                `UNBELIEVABLE DRAMA! First-place ${racer.name} ${reason} and spun off into the grass in a ball of fire! That ends ${racer.name}'s race! Look at the ambulance speeding to the scene!${leadText}`,
+                `HUGE CRASH AT THE FRONT! ${racer.name} lost control in the ${vName} after ${reason}, went off-track, and started a fire! ${racer.name} is out of the game as emergency crews arrive!${leadText}`
+            ];
+            queueUrgentEventAnnouncement(lines[Math.floor(Math.random() * lines.length)]);
+        }
+
         function updateRacers(now, dt) {
             const sortedByProgress = getSortedRacers();
             const leadScore = sortedByProgress.length > 0 ? computeRacerExactScore(sortedByProgress[0]) : 0;
 
+            // Suspenseful leader/front-pack accident & fire event
+            const isSnowMap = !!TRACK_CONFIGS[currentTrackId].isSnow;
+            const isMountainMap = !!TRACK_CONFIGS[currentTrackId].isMountainCliff;
+            if (isMountainMap && activeRoadObstacles.length < 16 && hazardRoadCandidates.length > 0 && Math.random() < 0.08) {
+                const pt = hazardRoadCandidates[Math.floor(Math.random() * hazardRoadCandidates.length)];
+                const obsTypes = ["🚧", "🛢️", "🪔", "🍂"];
+                activeRoadObstacles.push({ tileX: pt.x + 0.5, tileY: pt.y + 0.5, emoji: obsTypes[Math.floor(Math.random()*obsTypes.length)] });
+            }
+            const activeCount = racers.filter(r => !r.eliminated && r.finishRank === 0).length;
+            if (canEliminateNow() && now > nextLeaderDramaTime && sortedByProgress.length >= 2) {
+                nextLeaderDramaTime = now + ((isSnowMap || isMountainMap) ? 2100 + Math.random() * 1700 : 3500 + Math.random() * 2200);
+                const pool = sortedByProgress.filter(r => !r.eliminated && r.finishRank === 0).slice(0, isSnowMap ? 4 : 3);
+                const victim = pool[Math.floor(Math.random() * pool.length)];
+                const runnerUp = sortedByProgress.find(r => !r.eliminated && r.finishRank === 0 && r.id !== (victim && victim.id));
+                if (victim && Math.random() < ((isSnowMap || isMountainMap) ? 0.92 : 0.82)) {
+                    const reasons = isSnowMap ? [
+                        "hit black ice on the turn and slid off the snowy road",
+                        "lost traction in the blizzard and skidded into a snowbank",
+                        "spun out on the icy curve and slid off the track",
+                        "slid sideways on the ice and exploded into a snowbank"
+                    ] : isMountainMap ? [
+                        "missed the sharp mountain hairpin and fell off the cliff",
+                        "got stuck at the roadwork and slid off the mountain edge",
+                        "clipped a barrel on the cliffside and tumbled down the hill",
+                        "lost control on autumn leaves and plunged off the cliff"
+                    ] : [
+                        "clipped another car on a sharp turn",
+                        "swerved to avoid a stray animal on the road",
+                        "hit a sharp turn way too fast",
+                        "slammed into debris in the road in a massive fireball"
+                    ];
+                    triggerEliminationCrash(victim, reasons[Math.floor(Math.random() * reasons.length)], runnerUp ? runnerUp.name : "", now);
+                }
+            }
+
+            // Update visual particle effects & wreck smoke
+            activeEffects = activeEffects.filter(ef => now < ef.until);
+            activeEffects.forEach(ef => {
+                if (ef.type === "spark" || ef.type === "smoke" || ef.type === "fireball" || ef.type === "debris") { ef.x += ef.vx; ef.y += ef.vy; }
+            });
+            if (Math.random() < 0.35) {
+                racers.forEach(r => {
+                    if (r.eliminated) activeEffects.push({ type: "smoke", x: r.tileX, y: r.tileY - 0.2, vx: (Math.random()-0.5)*0.02, vy: -0.04, createdAt: now, until: now + 900 });
+                });
+            }
+
+            // Automatic Black Ice & Pileup events
+            if (!finishLinePhase && now > nextBlackIceTime) {
+                nextBlackIceTime = now + 9500 + Math.random() * 6500;
+                triggerBlackIceEvent();
+            }
+            if (!finishLinePhase && now > nextPileupTime) {
+                nextPileupTime = now + 13000 + Math.random() * 7000;
+                triggerPileupEvent();
+            }
+
+            // Expire & check Black Ice patches
+            activeIcePatches = activeIcePatches.filter(ip => now < ip.until);
+
+            // Animate ambulances & helicopters
+            activeEmergencies = activeEmergencies.filter(em => now < em.until);
+            activeEmergencies.forEach(em => {
+                em.ambX += (em.fireX - em.ambX) * 0.035;
+                em.ambY += (em.fireY - em.ambY) * 0.035;
+                em.heliX += (em.fireX - em.heliX) * 0.045;
+                em.heliY += (em.fireY - 0.6 - em.heliY) * 0.045;
+            });
+
             racers.forEach(racer => {
+                if (racer.eliminated) return;
                 if (now < racer.crashedUntil) return;
                 if (racer.finishRank > 0) return;
 
@@ -650,7 +968,7 @@
                     if (Math.random() < 0.70) {
                         racer.laneOffset = racer.laneOffset > 0 ? -0.35 : 0.35; // Swerve around!
                     } else {
-                        activeRocks.splice(hitRockIdx, 1); racer.crashedUntil = now + 1500; playCrashSound();
+                        activeRocks.splice(hitRockIdx, 1); racer.crashedUntil = now + 1500; racer.crashStart = now; racer.wreckAngle = (Math.random() < 0.5 ? -1 : 1) * 0.4; playCrashSound();
                         const vName = VEHICLE_NAMES[racer.emoji] || 'car';
                         hazardBannerIcon.textContent = '🪨🔥💥';
                         hazardBannerText.textContent = `${racer.name} clipped a rock!`;
@@ -660,10 +978,47 @@
                     }
                 }
 
+                const hitObsIdx = activeRoadObstacles.findIndex(ob => Math.hypot(racer.tileX - ob.tileX, racer.tileY - ob.tileY) < 0.75);
+                if (hitObsIdx !== -1) {
+                    const ob = activeRoadObstacles[hitObsIdx];
+                    if (ob.emoji === "🚧") {
+                        activeRoadObstacles.splice(hitObsIdx, 1);
+                        racer.crashedUntil = now + 1500;
+                        racer.crashStart = now;
+                        racer.wreckAngle = 0.25;
+                        queueUrgentEventAnnouncement(`${racer.name} got stuck in mountain roadwork!`);
+                        return;
+                    } else if (ob.emoji === "🛢️") {
+                        activeRoadObstacles.splice(hitObsIdx, 1);
+                        const activeLeft = racers.filter(r => !r.eliminated && r.finishRank === 0).length;
+                        if (canEliminateNow()) {
+                            const nextL = sortedByProgress.find(r => !r.eliminated && r.finishRank === 0 && r.id !== racer.id);
+                            triggerEliminationCrash(racer, "smashed into an explosive oil barrel on the cliffside", nextL ? nextL.name : "", now);
+                            return;
+                        } else {
+                            racer.crashedUntil = now + 1200;
+                            racer.crashStart = now;
+                            return;
+                        }
+                    } else {
+                        activeRoadObstacles.splice(hitObsIdx, 1);
+                        racer.targetLaneOffset = racer.laneOffset > 0 ? -0.35 : 0.35;
+                    }
+                }
+                const hitIceIdx = activeIcePatches.findIndex(ip => Math.hypot(racer.tileX - ip.tileX, racer.tileY - ip.tileY) < 0.85);
+                if (hitIceIdx !== -1) {
+                    activeIcePatches.splice(hitIceIdx, 1);
+                    racer.crashedUntil = now + 1100;
+                    racer.crashStart = now;
+                    racer.wreckAngle = (Math.random() < 0.5 ? -1 : 1) * 0.5;
+                    racer.targetLaneOffset = racer.laneOffset > 0 ? -0.36 : 0.36;
+                    queueUrgentEventAnnouncement(`${racer.name} hit black ice and spun sideways!`);
+                    return;
+                }
                 const hitBoostIdx = activeBoosts.findIndex(b => Math.hypot(racer.tileX - b.tileX, racer.tileY - b.tileY) < 0.78);
                 if (hitBoostIdx !== -1) {
                     activeBoosts.splice(hitBoostIdx, 1);
-                    racer.boostUntil = now + 3200;
+                    racer.boostUntil = now + 3800;
                     if (soundInitialized) { try { boostSynth.triggerAttackRelease('8n', Tone.now()); } catch (e) {} }
                     const vName = VEHICLE_NAMES[racer.emoji] || 'car';
                     queueUrgentEventAnnouncement(`${racer.name} hit a lightning boost in the ${vName}!`);
@@ -672,7 +1027,6 @@
                 const blockingAnimal = activeAnimals.find(a => Math.hypot(racer.tileX - a.tileX, racer.tileY - a.tileY) < 1.1);
                 if (blockingAnimal) {
                     if (!racer.stoppedByAnimal) {
-                        playVariedCarHorn();
                         if (!blockingAnimal.announced) {
                             blockingAnimal.announced = true;
                             const vName = VEHICLE_NAMES[racer.emoji] || 'car';
@@ -681,6 +1035,27 @@
                     }
                     racer.stoppedByAnimal = true; return;
                 } else racer.stoppedByAnimal = false;
+
+                // Smooth multi-lane overtaking (no beeping)
+                if (racer.targetLaneOffset === undefined) racer.targetLaneOffset = racer.laneOffset;
+                const aheadRacer = racers.find(other =>
+                    other.id !== racer.id &&
+                    other.finishRank === 0 &&
+                    Math.abs(other.laneOffset - racer.laneOffset) < 0.22 &&
+                    Math.hypot(other.tileX - racer.tileX, other.tileY - racer.tileY) < 1.25 &&
+                    computeRacerExactScore(other) > computeRacerExactScore(racer)
+                );
+                if (aheadRacer && (!racer.lastPassCheck || now - racer.lastPassCheck > 650)) {
+                    racer.lastPassCheck = now;
+                    const lanes = [-0.36, -0.18, 0, 0.18, 0.36];
+                    const openLane = lanes.find(l => Math.abs(l - aheadRacer.laneOffset) >= 0.22) ?? (racer.laneOffset > 0 ? -0.34 : 0.34);
+                    racer.targetLaneOffset = openLane;
+                    racer.passBoostUntil = now + 900;
+                    for (let g = 0; g < 4; g++) {
+                        activeEffects.push({ type: "fireball", x: racer.tileX, y: racer.tileY, vx: (Math.random()-0.5)*0.06, vy: (Math.random()-0.5)*0.06, size: 0.10, color: "#facc15", createdAt: now, until: now + 420 });
+                    }
+                }
+                racer.laneOffset += (racer.targetLaneOffset - racer.laneOffset) * 0.12;
 
                 const targetNode = lapWaypoints[racer.waypointIndex];
                 const targetTileX = targetNode.x + 0.5 + racer.laneOffset;
@@ -703,13 +1078,19 @@
                     const myScore = computeRacerExactScore(racer);
                     const gapBehindLeader = Math.max(0, leadScore - myScore);
 
-                    let chaosMultiplier = 0.90 + Math.random() * 0.50;
+                    const isFinal20 = (typeof remainingTimeMs !== "undefined" && remainingTimeMs <= 20000) || finishLinePhase;
+                    let chaosMultiplier = 0.92 + Math.random() * 0.48;
                     if (rankIndex === 0) {
-                        chaosMultiplier = 0.85 + Math.random() * 0.30; // Balanced leader speed
+                        const secondRacer = sortedByProgress[1];
+                        const leadMargin = secondRacer ? Math.max(0, myScore - computeRacerExactScore(secondRacer)) : 0;
+                        chaosMultiplier = leadMargin > (isFinal20 ? 0.35 : 0.65) ? (0.76 + Math.random() * 0.18) : (0.90 + Math.random() * 0.26);
+                    } else if (rankIndex === 1 || rankIndex === 2) {
+                        const duelBoost = isFinal20 ? 0.24 : 0.14;
+                        chaosMultiplier = 1.08 + duelBoost + Math.random() * 0.32 + Math.min(0.45, gapBehindLeader * 0.06);
                     } else if (rankIndex <= 5) {
-                        chaosMultiplier = 1.05 + Math.random() * 0.45 + Math.min(0.3, gapBehindLeader * 0.02);
+                        chaosMultiplier = 1.06 + Math.random() * 0.42 + Math.min(0.35, gapBehindLeader * 0.025);
                     } else {
-                        chaosMultiplier = 1.15 + Math.random() * 0.55 + Math.min(0.4, gapBehindLeader * 0.025);
+                        chaosMultiplier = 1.15 + Math.random() * 0.55 + Math.min(0.42, gapBehindLeader * 0.03);
                     }
 
                     racer.speed = racer.baseSpeed * chaosMultiplier;
@@ -717,12 +1098,15 @@
                 }
 
                 let finalSpeed = racer.speed;
-                if (now < racer.boostUntil) finalSpeed *= 2.0; // Smoother boost curve so cars don't stall out right after
+                if (now < racer.boostUntil) finalSpeed *= 2.9;
+                if (racer.passBoostUntil && now < racer.passBoostUntil) finalSpeed *= 1.15; // Smoother boost curve so cars don't stall out right after
                 if (finishLinePhase) finalSpeed *= 1.35;
 
                 const dx = targetTileX - racer.tileX; const dy = targetTileY - racer.tileY;
-                const distTiles = Math.hypot(dx, dy); const stepTiles = (finalSpeed * simulationSpeed) / 31;
+                const distTiles = Math.hypot(dx, dy); const slowFactor = (now < slowMoUntil) ? 0.35 : 1.0;
+                const stepTiles = (finalSpeed * simulationSpeed * slowFactor) / 31;
 
+                racer.headingAngle = Math.atan2(dy, dx);
                 if (Math.abs(dx) > Math.abs(dy)) { racer.facingRight = dx > 0; racer.tiltAngle = 0; }
                 else { racer.facingRight = false; racer.tiltAngle = dy > 0 ? -0.42 : 0.42; }
 
@@ -788,15 +1172,33 @@
             const isBoosted = now < racer.boostUntil;
             const rx = racer.tileX * TILE_SIZE; const ry = racer.tileY * TILE_SIZE;
 
+
+
             ctx.save(); ctx.translate(rx, ry);
             if (racer.facingRight) ctx.scale(-1, 1);
-            if (isCrashed) ctx.rotate((now * 0.015) % (Math.PI * 2));
+            if (isCrashed) {
+                const spinElapsed = racer.crashStart ? (now - racer.crashStart) : 9999;
+                if (spinElapsed < 650) ctx.rotate((spinElapsed * 0.012));
+                else ctx.rotate(racer.wreckAngle || 0.45);
+            }
             else if (racer.tiltAngle !== 0) ctx.rotate(racer.tiltAngle);
 
-            ctx.font = `${TILE_SIZE * 0.78}px sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            if (isBoosted && !isCrashed) {
+                ctx.shadowColor = "#06b6d4";
+                ctx.shadowBlur = 14;
+                // Blue exhaust flame
+                ctx.fillStyle = "rgba(56, 189, 248, 0.85)";
+                ctx.beginPath();
+                ctx.ellipse(TILE_SIZE * 0.55, 0, TILE_SIZE * 0.32, TILE_SIZE * 0.14, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            if (racer.hueShift) ctx.filter = `hue-rotate(${racer.hueShift}deg) saturate(1.25)`;
+            ctx.font = `${TILE_SIZE * 0.97}px sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             ctx.fillText(racer.emoji, 0, 0);
+            ctx.filter = "none";
+            ctx.shadowBlur = 0;
 
-            if (isBoosted && !isCrashed) { ctx.font = `${TILE_SIZE * 0.5}px sans-serif`; ctx.fillText('💨', TILE_SIZE * 0.6, 0); }
+            if (isBoosted && !isCrashed) { ctx.font = `${TILE_SIZE * 0.50}px sans-serif`; ctx.fillText('⚡', TILE_SIZE * 0.65, -TILE_SIZE * 0.18); }
             ctx.restore();
 
             if (isCrashed) { ctx.font = `${TILE_SIZE * 0.62}px sans-serif`; ctx.fillText('🪨🔥💥', rx, ry - TILE_SIZE * 0.55); }
@@ -805,33 +1207,133 @@
 
         function isRacerOnOverpassBridge(racer) {
             if (currentTrackId !== 4) return false;
-            return [4, 5, 7, 8, 19].includes(racer.waypointIndex);
+            return [4, 6].includes(racer.waypointIndex);
         }
 
         // --- 7. RENDERING ---
         function drawTrack() {
             const now = performance.now();
             const cfg = TRACK_CONFIGS[currentTrackId];
-            ctx.fillStyle = '#4d8a3b'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            if (now < shakeUntil) {
+                const mag = ((shakeUntil - now) / 280) * 6;
+                ctx.translate((Math.random() - 0.5) * mag, (Math.random() - 0.5) * mag);
+            }
+            ctx.fillStyle = cfg.isMountainCliff ? '#5c3a21' : (cfg.isCurvedNight ? '#0b1120' : (cfg.isSnow ? '#dbeafe' : '#4d8a3b')); ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Draw trees & buildings first
             for (let y = 0; y < rows; y++) {
                 for (let x = 0; x < cols; x++) {
-                    const tile = map[y][x]; const px = x * TILE_SIZE; const py = y * TILE_SIZE;
-                    if (tile === 1 || tile === 4) {
-                        ctx.fillStyle = currentTrackId === 3 ? '#312e81' : (currentTrackId === 4 ? '#1f2937' : '#374151');
-                        ctx.fillRect(px, py, TILE_SIZE + 0.6, TILE_SIZE + 0.6);
-                        ctx.fillStyle = currentTrackId === 3 ? '#818cf8' : (currentTrackId === 4 ? '#fbbf24' : '#9ca3af');
-                        ctx.fillRect(px + TILE_SIZE * 0.38, py + TILE_SIZE * 0.45, TILE_SIZE * 0.22, TILE_SIZE * 0.08);
-                    }
-                    const centerX = px + TILE_SIZE / 2; const centerY = py + TILE_SIZE / 2;
-                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-                    if (tile === 2 || tile === 3) { ctx.font = `${TILE_SIZE * 0.72}px sans-serif`; ctx.fillText(emojiMap[y][x], centerX, centerY); }
-                    else if (tile === 4) {
-                        ctx.fillStyle = '#facc15'; ctx.fillRect(px, py, TILE_SIZE * 0.24, TILE_SIZE);
-                        ctx.font = `${TILE_SIZE * 0.82}px sans-serif`; ctx.fillText(EMOJIS.finish, centerX, centerY);
+                    const tile = map[y][x];
+                    if (tile === 2 || tile === 3) {
+                        const centerX = x * TILE_SIZE + TILE_SIZE / 2;
+                        const centerY = y * TILE_SIZE + TILE_SIZE / 2;
+                        ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                        ctx.font = `${TILE_SIZE * 0.74}px sans-serif`;
+                        ctx.fillText(emojiMap[y][x], centerX, centerY);
                     }
                 }
             }
+            if (cfg.isCurvedNight) {
+                ctx.save();
+                ctx.lineCap = "round";
+                ctx.lineJoin = "round";
+                ctx.beginPath();
+                lapWaypoints.forEach((wp, i) => {
+                    const wx = (wp.x + 0.5) * TILE_SIZE, wy = (wp.y + 0.5) * TILE_SIZE;
+                    if (i === 0) ctx.moveTo(wx, wy); else ctx.lineTo(wx, wy);
+                });
+                ctx.closePath();
+                ctx.strokeStyle = "#1e293b";
+                ctx.lineWidth = TILE_SIZE * 1.65;
+                ctx.stroke();
+
+                ctx.setLineDash([TILE_SIZE * 0.45, TILE_SIZE * 0.45]);
+                ctx.strokeStyle = "rgba(250, 204, 21, 0.55)";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                if (cfg.roundabouts) {
+                    cfg.roundabouts.forEach(rb => {
+                        const rbx = (rb.cx + 0.5) * TILE_SIZE, rby = (rb.cy + 0.5) * TILE_SIZE;
+                        const rad = rb.r * TILE_SIZE;
+                        ctx.beginPath();
+                        ctx.arc(rbx, rby, rad, 0, Math.PI * 2);
+                        ctx.fillStyle = "#0f172a";
+                        ctx.fill();
+                        ctx.lineWidth = 3;
+                        ctx.strokeStyle = "#ec4899";
+                        ctx.stroke();
+                    });
+                }
+
+                for (let i = 0; i < lapWaypoints.length; i += 4) {
+                    const wp = lapWaypoints[i];
+                    const lx = (wp.x + 0.5) * TILE_SIZE, ly = (wp.y + 0.5) * TILE_SIZE;
+                    const grad = ctx.createRadialGradient(lx, ly, 2, lx, ly, TILE_SIZE * 1.8);
+                    grad.addColorStop(0, "rgba(253, 224, 71, 0.42)");
+                    grad.addColorStop(1, "rgba(253, 224, 71, 0)");
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(lx, ly, TILE_SIZE * 1.8, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                const sx = (cfg.startCol + 0.5) * TILE_SIZE, sy = (cfg.startRow + 0.5) * TILE_SIZE;
+                ctx.fillStyle = "#facc15";
+                ctx.fillRect(sx - 3, sy - TILE_SIZE * 0.8, 6, TILE_SIZE * 1.6);
+                ctx.font = `${TILE_SIZE * 0.85}px sans-serif`;
+                ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                ctx.fillText(EMOJIS.finish, sx, sy);
+                ctx.restore();
+            } else {
+            // Draw 15% wider road on top
+            const roadPad = TILE_SIZE * 0.075;
+            const roadSpan = TILE_SIZE * 1.15;
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    const tile = map[y][x];
+                    if (tile === 1 || tile === 4) {
+                        const px = x * TILE_SIZE; const py = y * TILE_SIZE;
+                        const centerX = px + TILE_SIZE / 2; const centerY = py + TILE_SIZE / 2;
+                        ctx.fillStyle = cfg.isSnow ? "#475569" : (currentTrackId === 4 ? "#1f2937" : "#374151");
+                        ctx.fillRect(px - roadPad, py - roadPad, roadSpan, roadSpan);
+                        ctx.fillStyle = cfg.isSnow ? "#e0f2fe" : (currentTrackId === 4 ? "#fbbf24" : "#9ca3af");
+                        ctx.fillRect(px + TILE_SIZE * 0.36, py + TILE_SIZE * 0.45, TILE_SIZE * 0.28, TILE_SIZE * 0.09);
+                        if (tile === 4) {
+                            ctx.fillStyle = "#facc15"; ctx.fillRect(px - roadPad, py - roadPad, TILE_SIZE * 0.26, roadSpan);
+                            ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                            ctx.font = `${TILE_SIZE * 0.90}px sans-serif`; ctx.fillText(EMOJIS.finish, centerX, centerY);
+                        }
+                    }
+                }
+            }
+            }
+
+            
+            // Draw Black Ice patches on road
+            activeIcePatches.forEach(ip => {
+                const ix = ip.tileX * TILE_SIZE; const iy = ip.tileY * TILE_SIZE;
+                ctx.save();
+                ctx.fillStyle = "rgba(186, 230, 253, 0.72)";
+                ctx.beginPath();
+                ctx.ellipse(ix, iy, TILE_SIZE * 0.55, TILE_SIZE * 0.35, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.font = `${TILE_SIZE * 0.65}px sans-serif`;
+                ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                ctx.fillText("❄️", ix, iy);
+                ctx.restore();
+            });
+
+            
+            activeRoadObstacles.forEach(ob => {
+                ctx.save();
+                ctx.font = `${TILE_SIZE * 0.82}px sans-serif`;
+                ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                ctx.fillText(ob.emoji, ob.tileX * TILE_SIZE, ob.tileY * TILE_SIZE);
+                ctx.restore();
+            });
 
             activeBoosts.forEach(b => {
                 ctx.save();
@@ -906,6 +1408,88 @@
                 });
             }
 
+
+            
+            if (cfg.isMountainCliff) {
+                ctx.save();
+                ctx.font = `${TILE_SIZE * 0.55}px sans-serif`;
+                for (let i = 0; i < 24; i++) {
+                    const lx = ((i * 113 + now * 0.025) % canvas.width);
+                    const ly = ((i * 71 + now * 0.04) % canvas.height);
+                    ctx.fillText(i % 2 === 0 ? "🍂" : "🍁", lx, ly);
+                }
+                ctx.restore();
+            }
+
+            if (cfg.isSnow) {
+                ctx.save();
+                ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+                for (let i = 0; i < 45; i++) {
+                    const sx = ((i * 97 + now * 0.03) % canvas.width);
+                    const sy = ((i * 61 + now * 0.05) % canvas.height);
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, 2.2 + (i % 3), 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+
+
+            // Draw boost speed-lines & explosion/smoke/spark effects
+            racers.forEach(r => {
+                if (!r.eliminated && now < r.boostUntil) {
+                    const rx = r.tileX * TILE_SIZE; const ry = r.tileY * TILE_SIZE;
+                    ctx.save();
+                    ctx.strokeStyle = r.color || "#38bdf8";
+                    ctx.lineWidth = 2.5;
+                    ctx.globalAlpha = 0.7;
+                    for (let s = -1; s <= 1; s++) {
+                        ctx.beginPath();
+                        ctx.moveTo(rx - TILE_SIZE * 0.5, ry + s * 4);
+                        ctx.lineTo(rx - TILE_SIZE * 1.1, ry + s * 4);
+                        ctx.stroke();
+                    }
+                    ctx.restore();
+                }
+            });
+            activeEffects.forEach(ef => {
+                const prog = (now - ef.createdAt) / (ef.until - ef.createdAt);
+                const ex = ef.x * TILE_SIZE; const ey = ef.y * TILE_SIZE;
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, 1 - prog);
+                if (ef.type === "explosion") {
+                    const rad = TILE_SIZE * (0.4 + prog * 2.2);
+                    ctx.beginPath();
+                    ctx.arc(ex, ey, rad, 0, Math.PI * 2);
+                    ctx.strokeStyle = prog < 0.4 ? "#fde047" : "#ef4444";
+                    ctx.lineWidth = 4 * (1 - prog);
+                    ctx.stroke();
+                    ctx.font = `${TILE_SIZE * (1.2 + prog * 0.8)}px sans-serif`;
+                    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                    ctx.fillText("💥", ex, ey);
+                } else if (ef.type === "fireball") {
+                    ctx.beginPath();
+                    ctx.arc(ex, ey, TILE_SIZE * ef.size * (1 - prog * 0.5), 0, Math.PI * 2);
+                    ctx.fillStyle = ef.color || "#f97316";
+                    ctx.fill();
+                } else if (ef.type === "debris") {
+                    ctx.translate(ex, ey);
+                    ctx.rotate(prog * 8);
+                    ctx.fillStyle = "#334155";
+                    ctx.fillRect(-3, -2, 6, 4);
+                } else if (ef.type === "spark") {
+                    ctx.font = `${TILE_SIZE * 0.55}px sans-serif`;
+                    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                    ctx.fillText(ef.char, ex, ey);
+                } else if (ef.type === "smoke") {
+                    ctx.beginPath();
+                    ctx.arc(ex, ey, TILE_SIZE * (0.18 + prog * 0.35), 0, Math.PI * 2);
+                    ctx.fillStyle = "rgba(75, 85, 99, 0.55)";
+                    ctx.fill();
+                }
+                ctx.restore();
+            });
+
             activeTrafficLights.forEach(light => {
                 const lx = (light.x + 0.5) * TILE_SIZE; const ly = (light.y + 0.5) * TILE_SIZE;
                 ctx.fillStyle = '#222'; ctx.fillRect(lx - TILE_SIZE*0.25, ly - TILE_SIZE*1.2, TILE_SIZE*0.5, TILE_SIZE*1.05);
@@ -927,6 +1511,52 @@
                     ctx.save(); ctx.globalAlpha = Math.max(0, p.alpha); ctx.fillStyle = p.color; ctx.shadowColor = p.color; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); ctx.restore();
                 }
             }
+            
+            // Night Headlights & Red Taillight Trails (Track 4 & Track 5)
+            if (currentTrackId === 4 || cfg.isCurvedNight) {
+                racers.forEach(r => {
+                    if (r.eliminated) return;
+                    const rx = r.tileX * TILE_SIZE; const ry = r.tileY * TILE_SIZE;
+                    const ang = r.headingAngle !== undefined ? r.headingAngle : (r.facingRight ? 0 : Math.PI);
+                    ctx.save();
+                    ctx.translate(rx, ry);
+                    ctx.rotate(ang);
+                    ctx.globalCompositeOperation = "lighter";
+                    ctx.fillStyle = cfg.isCurvedNight ? "rgba(254, 240, 138, 0.28)" : "rgba(254, 240, 138, 0.18)";
+                    ctx.beginPath();
+                    ctx.moveTo(TILE_SIZE * 0.25, 0);
+                    ctx.lineTo(TILE_SIZE * 2.3, -TILE_SIZE * 0.55);
+                    ctx.lineTo(TILE_SIZE * 2.3, TILE_SIZE * 0.55);
+                    ctx.closePath();
+                    ctx.fill();
+                    if (cfg.isCurvedNight) {
+                        ctx.strokeStyle = "rgba(239, 68, 68, 0.65)";
+                        ctx.lineWidth = 2.2;
+                        ctx.beginPath();
+                        ctx.moveTo(-TILE_SIZE * 0.3, -4); ctx.lineTo(-TILE_SIZE * 1.15, -4);
+                        ctx.moveTo(-TILE_SIZE * 0.3, 4);  ctx.lineTo(-TILE_SIZE * 1.15, 4);
+                        ctx.stroke();
+                    }
+                    ctx.restore();
+                });
+            }
+            // Last-20s red pulsing border
+            if (gameRunning && ((typeof remainingTimeMs !== "undefined" && remainingTimeMs <= 20000) || finishLinePhase)) {
+                const pulse = 0.25 + 0.25 * Math.sin(now * 0.012);
+                ctx.save();
+                ctx.strokeStyle = `rgba(239, 68, 68, ${pulse})`;
+                ctx.lineWidth = 10;
+                ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
+                ctx.restore();
+            }
+            // 0.1s white explosion flash
+            if (now < flashUntil) {
+                ctx.save();
+                ctx.fillStyle = `rgba(255, 255, 255, ${((flashUntil - now) / 110) * 0.45})`;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            }
+            ctx.restore();
         }
 
         // --- 8. INITIALIZATION & UI BINDING ---
@@ -942,7 +1572,7 @@
             await initAudioEngine(); playStartSound();
             if (racers.length === 0 || remainingTimeMs <= 0 || celebrationActive || finishLinePhase) {
                 endGame(false); celebrationActive = false; finishLinePhase = false; podiumLocked = []; fireworks = []; remainingTimeMs = raceDurationMs;
-                activeAnimals = []; activeRocks = []; activeBoosts = []; urgentAnnouncementQueue = []; prevTopThreeNames = ["", "", ""];
+                activeAnimals = []; activeRocks = []; activeBoosts = []; activeEmergencies = []; activeEffects = []; activeIcePatches = []; activeRoadObstacles = []; shakeUntil = 0; flashUntil = 0; slowMoUntil = 0; urgentAnnouncementQueue = []; prevTopThreeNames = ["", "", ""];
                 hazardBanner.classList.add('hidden'); commentaryBanner.classList.add('hidden');
                 
                 buildActiveTrackMap(); resizeCanvasOnly();
@@ -950,7 +1580,14 @@
                 const maxSpanCols = Math.max(4, (cols - 4) - cfg.startCol);
                 const spacingCols = Math.min(0.42, maxSpanCols / Math.max(1, chosenNames.length));
 
-                for (let b = 0; b < 3; b++) {
+                if (TRACK_CONFIGS[currentTrackId].isMountainCliff && hazardRoadCandidates.length > 0) {
+                    const obsTypes = ["🚧", "🚧", "🛢️", "🛢️", "🪔", "🍂"];
+                    for (let o = 0; o < 18; o++) {
+                        const pt = hazardRoadCandidates[Math.floor(Math.random() * hazardRoadCandidates.length)];
+                        activeRoadObstacles.push({ tileX: pt.x + 0.5, tileY: pt.y + 0.5, emoji: obsTypes[o % obsTypes.length] });
+                    }
+                }
+                for (let b = 0; b < 14; b++) {
                     if (hazardRoadCandidates.length > 0) {
                         const pt = hazardRoadCandidates[Math.floor(Math.random() * hazardRoadCandidates.length)];
                         activeBoosts.push({ tileX: pt.x + 0.5, tileY: pt.y + 0.5 });
@@ -958,15 +1595,18 @@
                 }
 
                 racers = chosenNames.map((name, idx) => {
-                    const laneOffset = ((idx % 5) - 2) * 0.09;
-                    return { id: idx, name: name, emoji: availableVehicles[idx % availableVehicles.length], tileX: cfg.startCol + 0.5 + (idx * spacingCols), tileY: cfg.startRow + 0.5 + laneOffset, baseSpeed: 1.65 + (Math.random() * 0.16), speed: 1.7, speedChangeTimer: 0, waypointIndex: 1, laps: 0, finishRank: 0, laneOffset: laneOffset, facingRight: false, tiltAngle: 0, isStoppedAtLight: false, stoppedByAnimal: false, crashedUntil: 0, boostUntil: 0 };
+                    const laneOffset = ((idx % 5) - 2) * 0.17;
+                    const cObj = RACER_COLORS[idx % RACER_COLORS.length];
+                    const vEmoji = EXPANDED_FLEET[idx % EXPANDED_FLEET.length];
+                    const hueShift = idx >= 16 ? ((idx - 15) * 47) % 360 : 0;
+                    return { id: idx, name: name, emoji: vEmoji, color: cObj.hex, colorName: cObj.name, hueShift: hueShift, tileX: cfg.startCol + 0.5 + (idx * spacingCols), tileY: cfg.startRow + 0.5 + laneOffset, baseSpeed: 1.65 + (Math.random() * 0.18), speed: 1.7, speedChangeTimer: 0, waypointIndex: 1, laps: 0, finishRank: 0, laneOffset: laneOffset, targetLaneOffset: laneOffset, facingRight: false, tiltAngle: 0, isStoppedAtLight: false, stoppedByAnimal: false, crashedUntil: 0, boostUntil: 0, passBoostUntil: 0, eliminated: false };
                 });
             }
 
             celebrationActive = false; fireworks = []; gameRunning = true;
             document.getElementById('messageOverlay').classList.add('hidden'); document.getElementById('startButton').textContent = '🔄';
             raceStartTime = performance.now(); lastTime = raceStartTime; lastPanelRenderTime = raceStartTime;
-            nextAnimalSpawnTime = raceStartTime + 2200; nextRockSpawnTime = raceStartTime + 2000; nextBoostSpawnTime = raceStartTime + 2500; nextRandomHornTime = raceStartTime + 1800; lastSpeechEndTime = raceStartTime;
+            nextAnimalSpawnTime = raceStartTime + 2200; nextRockSpawnTime = raceStartTime + 2000; nextBoostSpawnTime = raceStartTime + 2000; nextLeaderDramaTime = raceStartTime + 4500; nextBlackIceTime = raceStartTime + 5000; nextPileupTime = raceStartTime + 9000; nextRandomHornTime = raceStartTime + 1800; lastSpeechEndTime = raceStartTime;
 
             const trackIntro = currentTrackId === 4
                 ? `Green light on Track 4, the Overpass and Tunnel Circuit! Watch cars race through the mountain tunnels, underpasses, and bridges!`
@@ -1138,7 +1778,17 @@
         document.getElementById('backButton').addEventListener('click', () => { endGame(false); document.getElementById('gameScreen').classList.add('hidden'); document.getElementById('selectionScreen').classList.remove('hidden'); });
         document.getElementById('overlayRestartBtn').addEventListener('click', () => { document.getElementById('messageOverlay').classList.add('hidden'); racers = []; endGame(); startGame(); });
         document.getElementById('overlayRosterBtn').addEventListener('click', () => { document.getElementById('messageOverlay').classList.add('hidden'); endGame(false); document.getElementById('gameScreen').classList.add('hidden'); document.getElementById('selectionScreen').classList.remove('hidden'); });
-        document.getElementById('speedSlider').addEventListener('input', (e) => { simulationSpeed = parseFloat(e.target.value); });
+        const speedSliderEl = document.getElementById("speedSlider");
+        const syncSpeed = () => {
+            const v = parseFloat(speedSliderEl.value);
+            simulationSpeed = Number.isFinite(v) ? v : 1;
+            const lbl = document.getElementById("speedValueLabel");
+            if (lbl) lbl.textContent = simulationSpeed.toFixed(2).replace(/\.00$/, "") + "x";
+        };
+        speedSliderEl.addEventListener("input", syncSpeed);
+        speedSliderEl.addEventListener("change", syncSpeed);
+        syncSpeed();
+
         
         window.addEventListener('resize', () => {
             if (!document.getElementById('gameScreen').classList.contains('hidden')) {
